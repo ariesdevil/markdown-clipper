@@ -1,0 +1,29 @@
+{
+
+    "manifest_version": 2,
+    "name": "markdown-clipper",
+    "version": "1.0",
+  
+    "description": "Clippse a website to markdown",
+  
+    "icons": {
+      
+    },
+  
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "downloads"
+      ],
+    
+      "browser_action": {
+        
+        "default_title": "markdown-clipper",
+        "default_popup": "popup/clipSite.html"
+    },
+
+    "background": {
+        "scripts": ["background/turndown.js", "/background/Readability.js", "background/background.js"]
+    }
+  
+  }
