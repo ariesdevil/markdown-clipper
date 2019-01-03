@@ -28,6 +28,7 @@ function downloadMarkdown(markdown, article) {
   browser.downloads.download({
     url: url,
     filename: article.title + ".md",
+    incognito: true,
     saveAs: true
   });
 }
