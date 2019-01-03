@@ -12,6 +12,11 @@ function convertArticleToMarkdown(article) {
   
   //add article titel as header
   markdown = "# " + article.title + "\n" + markdown;
+
+  //add summary if exist
+  if (article.excerpt != null) {
+    markdown = "> " + article.excerpt + "\n\n" + markdown;
+  }
   return markdown;
 }
 
