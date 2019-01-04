@@ -7,7 +7,10 @@
     "description": "Clippse a website to markdown",
   
     "icons": {
-      
+        "16": "/icons/favicon-16x16.png",
+        "32": "/icons/favicon-32x32.png",
+        "192": "/icons/favicon-192x192.png",
+        "512": "/icons/favicon-512x512.png"
     },
   
     "permissions": [
@@ -19,11 +22,17 @@
       "browser_action": {
         
         "default_title": "markdown-clipper",
-        "default_popup": "popup/clipSite.html"
+        "default_popup": "popup/clipSite.html",
+        "default_icon": {
+            "16": "/icons/favicon-16x16.png",
+            "32": "/icons/favicon-32x32.png"
+          }
     },
 
     "background": {
         "scripts": ["background/turndown.js", "/background/Readability.js", "background/background.js"]
     }
+
+
   
   }
