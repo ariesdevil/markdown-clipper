@@ -3,8 +3,9 @@
     "manifest_version": 2,
     "name": "markdown-clipper",
     "version": "1.0",
+    "author": "Enrico Kaack",
   
-    "description": "Clippse a website to markdown",
+    "description": "Downloads a readable version of a website in markdown format.",
   
     "icons": {
         "16": "/icons/favicon-16x16.png",
