@@ -34,12 +34,24 @@ function downloadMarkdown(markdown, article) {
     type: "text/markdown;charset=utf-8"
   });
   var url = URL.createObjectURL(blob);
+  
   browser.downloads.download({
     url: url,
     filename: generateValidFileName(article.title) + ".md",
     incognito: true,
     saveAs: true
-  });
+  }).then((id) => {
+    browser.downloads.onChanged.addListener((delta ) => {
+      //release the url for the blob
+      if (delta.state && delta.state.current == "complete") {
+        if (delta.id === id) {
+          window.URL.revokeObjectURL(url);
+        }
+      }
+    });
+  }).catch((err) => {
+    console.error("Download failed" + err)
+  });;
 }
 
 
