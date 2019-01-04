@@ -20,6 +20,15 @@ function convertArticleToMarkdown(article) {
   return markdown;
 }
 
+function generateValidFileName(title) {
+  //remove < > : " / \ | ? * 
+  console.log(title);
+  var illegalRe = /[\/\?<>\\:\*\|":]/g;
+  var name =  title.replace(illegalRe, "");
+  console.log(name);
+  return name;
+}
+
 function downloadMarkdown(markdown, article) {
   var blob = new Blob([markdown], {
     type: "text/markdown;charset=utf-8"
@@ -27,16 +36,18 @@ function downloadMarkdown(markdown, article) {
   var url = URL.createObjectURL(blob);
   browser.downloads.download({
     url: url,
-    filename: article.title + ".md",
+    filename: generateValidFileName(article.title) + ".md",
     incognito: true,
     saveAs: true
   });
 }
 
-function notify(message) {
 
+
+function notify(message) {
+  console.log(message);
   var parser = new DOMParser();
-  var dom = parser.parseFromString(message.dom, "application/xml");
+  var dom = parser.parseFromString(message.dom, "text/html");
   console.log(dom.documentElement.nodeName == "parsererror" ? "error while parsing" : dom.documentElement.nodeName);
 
   var article = createReadableVersion(dom);
