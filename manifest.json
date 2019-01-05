@@ -5,7 +5,7 @@
     "version": "1.0",
     "author": "Enrico Kaack",
   
-    "description": "Downloads a readable version of a website in markdown format.",
+    "description": "This extension works like a web clipper, but it downloads articles in a markdown format. This extension uses Turndown and Readability as its core libraries.",
   
     "icons": {
         "16": "/icons/favicon-16x16.png",
