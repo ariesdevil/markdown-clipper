@@ -2,6 +2,10 @@ function notifyExtension() {
     //var serializer = new XMLSerializer();
     //var content = serializer.serializeToString(document);
     var content = document.documentElement.outerHTML;
-    browser.runtime.sendMessage({"dom": content});
+    if (chrome) {
+      chrome.runtime.sendMessage({"dom": content});
+    }else {
+      browser.runtime.sendMessage({"dom": content});
+    }
   }
   notifyExtension();

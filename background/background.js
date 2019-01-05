@@ -1,4 +1,8 @@
-browser.runtime.onMessage.addListener(notify);
+if (chrome) {
+  chrome.runtime.onMessage.addListener(notify);
+}else {
+  browser.runtime.onMessage.addListener(notify);
+}
 
 function createReadableVersion(dom) {
   var reader = new Readability(dom);
@@ -32,24 +36,40 @@ function downloadMarkdown(markdown, article) {
     type: "text/markdown;charset=utf-8"
   });
   var url = URL.createObjectURL(blob);
-  
-  browser.downloads.download({
-    url: url,
-    filename: generateValidFileName(article.title) + ".md",
-    incognito: true,
-    saveAs: true
-  }).then((id) => {
-    browser.downloads.onChanged.addListener((delta ) => {
-      //release the url for the blob
-      if (delta.state && delta.state.current == "complete") {
-        if (delta.id === id) {
-          window.URL.revokeObjectURL(url);
+  if (chrome) {
+    chrome.downloads.download({
+      url: url,
+      filename: generateValidFileName(article.title) + ".md",
+      saveAs: true
+    }, function(id) {
+      chrome.downloads.onChanged.addListener((delta ) => {
+        //release the url for the blob
+        if (delta.state && delta.state.current == "complete") {
+          if (delta.id === id) {
+            window.URL.revokeObjectURL(url);
+          }
         }
-      }
+      });
     });
-  }).catch((err) => {
-    console.error("Download failed" + err)
-  });;
+  }else {
+    browser.downloads.download({
+      url: url,
+      filename: generateValidFileName(article.title) + ".md",
+      incognito: true,
+      saveAs: true
+    }).then((id) => {
+      browser.downloads.onChanged.addListener((delta ) => {
+        //release the url for the blob
+        if (delta.state && delta.state.current == "complete") {
+          if (delta.id === id) {
+            window.URL.revokeObjectURL(url);
+          }
+        }
+      });
+    }).catch((err) => {
+      console.error("Download failed" + err)
+    });
+  }
 }
 
 
