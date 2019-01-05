@@ -12,3 +12,6 @@ The plugin will be available in the Firefox and Google Chrome Add-on store.
 # Permissions
 - Access tabs: used to access the website content when the icon in the browser bar is clicked.
 - Manage Downloads: neccessary to be able to download the markdown file.
+
+--- 
+The icon was created using [Favicon.io ](https://favicon.io)
