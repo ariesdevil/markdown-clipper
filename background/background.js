@@ -22,10 +22,8 @@ function convertArticleToMarkdown(article) {
 
 function generateValidFileName(title) {
   //remove < > : " / \ | ? * 
-  console.log(title);
   var illegalRe = /[\/\?<>\\:\*\|":]/g;
   var name =  title.replace(illegalRe, "");
-  console.log(name);
   return name;
 }
 
@@ -55,12 +53,13 @@ function downloadMarkdown(markdown, article) {
 }
 
 
-
+//function that handles messages from the injected script into the site
 function notify(message) {
-  console.log(message);
   var parser = new DOMParser();
   var dom = parser.parseFromString(message.dom, "text/html");
-  console.log(dom.documentElement.nodeName == "parsererror" ? "error while parsing" : dom.documentElement.nodeName);
+  if (dom.documentElement.nodeName == "parsererror"){
+    console.error( "error while parsing");
+  } 
 
   var article = createReadableVersion(dom);
   var markdown = convertArticleToMarkdown(article);
